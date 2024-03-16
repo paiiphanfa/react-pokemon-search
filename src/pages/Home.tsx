@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { gql } from "graphql-tag";
 import PokemonLogo from "../image/pokemon-logo.png";
+import './Home.css'
 
 const GET_POKEMON = gql`
   query pokemon($name: String) {
@@ -90,6 +91,7 @@ const Home = () => {
   };
 
   const handleEvolutionClick = (evolutionName: any) => {
+    setSearch(evolutionName);
     const variables = { name: evolutionName };
     getPokemon({ variables });
     getPokemonAtk({ variables });
@@ -156,7 +158,7 @@ const Home = () => {
             </Button>
           </Box>
         </Box>
-      </Container>
+    </Container>
                 
             {loading && (
             <Box sx={{ mt: 3 }}>
@@ -177,7 +179,7 @@ const Home = () => {
                 <Typography variant="h5" fontStyle="italic">
                   Attack Line:
                 </Typography>
-                <Typography sx={{ marginTop: 2 }}>Fast Attack:</Typography>
+                <Typography>Fast Attack:</Typography>
                 <Typography> {
                     atkData.data && atkData.data.pokemon && atkData.data.pokemon.attacks &&
                     atkData.data.pokemon.attacks.fast.map((attack: any) => (
@@ -194,26 +196,6 @@ const Home = () => {
                     </li>
                     ))}</Typography>
               </Box>
-              <Box sx={{ display: 'flex'}}>
-              <Typography variant="h5" fontStyle="italic">
-                Evolution Line:
-              </Typography>
-              {evoData.data &&
-                evoData.data.pokemon &&
-                evoData.data.pokemon.evolutions &&
-                evoData.data.pokemon.evolutions.map((evolution: any, index: any) => (
-                  <Box key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: index !== 0 ? 2 : 0 }}>
-                    <img
-                      src={evolution.image}
-                      alt={evolution.name}
-                      style={{ width: 100, height: 100, marginRight: 20 }}
-                    />
-                    <EvolutionName name={evolution.name} onEvolutionClick={handleEvolutionClick} />
-                    <Typography>Number: {evolution.number}</Typography>
-                    <Typography>Classification: {evolution.classification}</Typography>
-                  </Box>
-                ))}
-                </Box>
             </Box>
             
           )}
@@ -223,7 +205,33 @@ const Home = () => {
               <Typography variant="h5">Pokemon Not Found</Typography>
             </Box>
           )}
-      <Container>
+      <Container sx={{marginTop: 5}}>
+        <Container>
+        {data && data.pokemon && (
+        <Box sx={{ display: 'flex', justifyContent: "center", marginTop: 4}}>
+            <Typography variant="h5" fontStyle="italic">
+              Evolution Line:
+            </Typography>
+            <Typography>
+            {evoData.data &&
+              evoData.data.pokemon &&
+              evoData.data.pokemon.evolutions &&
+              evoData.data.pokemon.evolutions.map((evolution: any, index: any) => (
+                <Box key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: index !== 0 ? 2 : 0, marginTop:3 }}>
+                  <img
+                    src={evolution.image}
+                    alt={evolution.name}
+                    style={{ width: 100, height: 100, marginRight: 20 }}
+                  />
+                  <EvolutionName name={evolution.name} onEvolutionClick={handleEvolutionClick} />
+                  <Typography>Number: {evolution.number}</Typography>
+                  <Typography>Classification: {evolution.classification}</Typography>
+                </Box>
+              ))}
+              </Typography>
+          </Box>
+          )}
+        </Container>
 
       </Container>
     </>
