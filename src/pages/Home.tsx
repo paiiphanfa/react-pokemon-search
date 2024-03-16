@@ -109,7 +109,7 @@ const Home = () => {
       sx={{ marginTop: 2, cursor: 'pointer' }}
       onClick={() => onEvolutionClick(name)}
     >
-      Name: <span style={{ color: 'blue' }}>{name}</span>
+      <span style={{ fontWeight: 'bold' }}>Name:</span> <span style={{ color: 'blue' }}>{name}</span>
     </Typography>
   );
   
@@ -170,29 +170,29 @@ const Home = () => {
             <Box sx={{ mt: 3, display: "flex", gap: 4, justifyContent: "center"}}>
               <img src={data.pokemon.image} alt={data.pokemon.name} style={{ width: 100, height: 100, marginRight: 20 }} />
               <Box>
-                <Typography variant="h5" fontStyle={"italic"}>Pokemon Details:</Typography>
-                <Typography>Name: {data.pokemon.name}</Typography>
-                <Typography>Number: {data.pokemon.number}</Typography>
-                <Typography>Classification: {data.pokemon.classification}</Typography>
+                <Typography variant="h5" fontStyle={"italic"} fontWeight={'bold'}>Pokemon Details:</Typography>
+                <Typography> <span style={{ fontWeight: 'bold' }}>Name:</span> {data.pokemon.name}</Typography>
+                <Typography> <span style={{ fontWeight: 'bold' }}>Number:</span> {data.pokemon.number}</Typography>
+                <Typography> <span style={{ fontWeight: 'bold' }}>Classification:</span> {data.pokemon.classification}</Typography>
               </Box>
               <Box sx={{ marginLeft: 4 }}>
-                <Typography variant="h5" fontStyle="italic">
+                <Typography variant="h5" fontStyle="italic" fontWeight={'bold'}>
                   Attack Line:
                 </Typography>
-                <Typography>Fast Attack:</Typography>
+                <Typography><span style={{ fontWeight: 'bold' }}>Fast Attack:</span></Typography>
                 <Typography> {
                     atkData.data && atkData.data.pokemon && atkData.data.pokemon.attacks &&
                     atkData.data.pokemon.attacks.fast.map((attack: any) => (
-                    <li key={attack.name}>
-                      {attack.name} - Type: {attack.type}, Damage: {attack.damage}
+                    <li key={attack.name} style={{ listStyleType: 'circle' }}>
+                      <span style={{ fontWeight: 'bold' }}>{attack.name}</span> - Type: {attack.type}, Damage: <span style={{ color: 'red' }}>{attack.damage}</span>
                     </li>
                     ))}</Typography>
-                <Typography sx={{ marginTop: 2 }}>Special Attack:</Typography>
+                <Typography sx={{ marginTop: 2 }}><span style={{ fontWeight: 'bold' }}>Special Attack:</span></Typography>
                 <Typography> {
                     atkData.data && atkData.data.pokemon && atkData.data.pokemon.attacks &&
                     atkData.data.pokemon.attacks.special.map((attack: any) => (
-                    <li key={attack.name}>
-                      {attack.name} - Type: {attack.type}, Damage: {attack.damage}
+                    <li key={attack.name} style={{ listStyleType: 'circle' }} >
+                      <span style={{ fontWeight: 'bold' }}>{attack.name}</span> - Type: {attack.type}, Damage: <span style={{ color: 'red' }}>{attack.damage}</span>
                     </li>
                     ))}</Typography>
               </Box>
@@ -202,14 +202,14 @@ const Home = () => {
 
           {searchPerformed && !loading && !data?.pokemon && (
             <Box sx={{ mt: 3, display: "flex", justifyContent: "center"}}>
-              <Typography variant="h5">Pokemon Not Found</Typography>
+              <Typography variant="h5" fontWeight={'bold'}>Pokemon Not Found</Typography>
             </Box>
           )}
       <Container sx={{marginTop: 5}}>
         <Container>
         {data && data.pokemon && (
         <Box sx={{ display: 'flex', justifyContent: "center", marginTop: 4}}>
-            <Typography variant="h5" fontStyle="italic">
+            <Typography variant="h5" fontStyle="italic" fontWeight={'bold'}>
               Evolution Line:
             </Typography>
             <Typography>
@@ -224,8 +224,8 @@ const Home = () => {
                     style={{ width: 100, height: 100, marginRight: 20 }}
                   />
                   <EvolutionName name={evolution.name} onEvolutionClick={handleEvolutionClick} />
-                  <Typography>Number: {evolution.number}</Typography>
-                  <Typography>Classification: {evolution.classification}</Typography>
+                  <Typography><span style={{ fontWeight: 'bold' }}>Number:</span>  {evolution.number}</Typography>
+                  <Typography><span style={{ fontWeight: 'bold' }}>Classification:</span> {evolution.classification}</Typography>
                 </Box>
               ))}
               </Typography>
